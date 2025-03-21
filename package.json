@@ -8,7 +8,7 @@
     "test": "vitest",
     "build": "vite build",
     "coverage": "vitest run --coverage",
-    "jsdoc": "jsdoc -R ./README.md -c ./jsdoc.config.json -r -d ./docs",
+    "jsdoc": "jsdoc -R ./README.md -c ./jsdoc.config.json -r -d ./public/docs",
     "predeploy": "vite build",
     "deploy": "gh-pages -d dist",
     "lint": "eslint .",
