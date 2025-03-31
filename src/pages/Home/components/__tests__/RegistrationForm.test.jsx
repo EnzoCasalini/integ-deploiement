@@ -28,7 +28,7 @@ describe("RegistrationForm – intégration", () => {
 
   test("le bouton est désactivé si tous les champs ne sont pas remplis", async () => {
     render(<RegistrationForm />);
-    const submitButton = screen.getByRole("button", { name: /sauvegarder/i });
+    const submitButton = screen.getByRole("button", { name: /join/i });
 
     await waitFor(() => {
       expect(submitButton).toBeDisabled();
@@ -41,7 +41,7 @@ describe("RegistrationForm – intégration", () => {
 
   test("affiche les erreurs après un submit invalide", async () => {
     render(<RegistrationForm />);
-    const submitButton = screen.getByRole("button", { name: /sauvegarder/i });
+    const submitButton = screen.getByRole("button", { name: /join/i });
     await fillAllFields();
     await userEvent.clear(screen.getByLabelText("Email"));
     await userEvent.type(screen.getByLabelText("Email"), "bademail");
@@ -53,13 +53,13 @@ describe("RegistrationForm – intégration", () => {
 
   test("valide le formulaire : toast de succès + reset + localStorage", async () => {
     render(<RegistrationForm />);
-    const submitButton = screen.getByRole("button", { name: /sauvegarder/i });
+    const submitButton = screen.getByRole("button", { name: /join/i });
 
     await fillAllFields();
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(toast.success).toHaveBeenCalledWith("Formulaire sauvegardé avec succès !");
+      expect(toast.success).toHaveBeenCalledWith("Candidature sauvegardée !");
     });
 
     const stored = JSON.parse(localStorage.getItem("userData"));
@@ -75,7 +75,7 @@ describe("RegistrationForm – intégration", () => {
 
   test("corrige une erreur et l'erreur disparaît", async () => {
     render(<RegistrationForm />);
-    const submitButton = screen.getByRole("button", { name: /sauvegarder/i });
+    const submitButton = screen.getByRole("button", { name: /join/i });
 
     await fillAllFields();
     await userEvent.clear(screen.getByLabelText("Email"));

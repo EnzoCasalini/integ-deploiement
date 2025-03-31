@@ -54,7 +54,7 @@ const RegistrationForm = () => {
     setHasSubmitted(true);
 
     localStorage.setItem("userData", JSON.stringify(data));
-    toast.success("Formulaire sauvegardé avec succès !");
+    toast.success("Candidature sauvegardée !");
 
     reset();
 
