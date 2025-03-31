@@ -8,9 +8,12 @@ import Home from "./pages/Home/Home.jsx";
 
 function App() {
   return (
-    <section>
-      <Home />
-    </section>
+    <>
+      <div className="background"></div>
+      <section className="main-page">
+        <Home />
+      </section>
+    </>
   );
 }
 
