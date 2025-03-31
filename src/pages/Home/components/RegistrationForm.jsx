@@ -3,6 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registrationSchema} from "../../../utils/schema.js";
 import CustomInput from "./CustomInput";
 import { toast } from "react-toastify";
+import "./RegistrationForm.css"
+import killua from "../../../assets/img/killua.png"
+import hxhlogo from "../../../assets/img/hxh-logo.png"
 import { z } from "zod";
 import {useState} from "react";
 
@@ -70,57 +73,66 @@ const RegistrationForm = () => {
 
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit, onError)}>
-      <CustomInput
-        label="Nom"
-        name="lastName"
-        type="text"
-        {...register("lastName")}
-        error={(hasSubmitted && touchedFields.lastName) ? errors.lastName?.message : ""}
-      />
+      <div className="left-side">
+        <div className="image-wrapper">
+          <img className="logo" src={hxhlogo} alt="The logo of Hunter x Hunter."/>
+          <img className="killua" src={killua} alt="Killua Zoldyck running with a skateboard under his arm."/>
+        </div>
+      </div>
+      <div className="right-side">
+        <h1>Register to the Hunter Exam !</h1>
+        <CustomInput
+          label="Nom"
+          name="lastName"
+          type="text"
+          {...register("lastName")}
+          error={(hasSubmitted && touchedFields.lastName) ? errors.lastName?.message : ""}
+        />
 
-      <CustomInput
-        label="Prénom"
-        name="firstName"
-        type="text"
-        {...register("firstName")}
-        error={(hasSubmitted && touchedFields.firstName) ? errors.firstName?.message : ""}
-      />
+        <CustomInput
+          label="Prénom"
+          name="firstName"
+          type="text"
+          {...register("firstName")}
+          error={(hasSubmitted && touchedFields.firstName) ? errors.firstName?.message : ""}
+        />
 
-      <CustomInput
-        label="Email"
-        name="email"
-        type="email"
-        {...register("email")}
-        error={(hasSubmitted && touchedFields.email) ? errors.email?.message : ""}
-      />
+        <CustomInput
+          label="Email"
+          name="email"
+          type="email"
+          {...register("email")}
+          error={(hasSubmitted && touchedFields.email) ? errors.email?.message : ""}
+        />
 
-      <CustomInput
-        label="Date de naissance"
-        name="birthDate"
-        type="date"
-        {...register("birthDate")}
-        error={(hasSubmitted && touchedFields.birthDate) ? errors.birthDate?.message : ""}
-      />
+        <CustomInput
+          label="Date de naissance"
+          name="birthDate"
+          type="date"
+          {...register("birthDate")}
+          error={(hasSubmitted && touchedFields.birthDate) ? errors.birthDate?.message : ""}
+        />
 
-      <CustomInput
-        label="Ville"
-        name="city"
-        type="text"
-        {...register("city")}
-        error={(hasSubmitted && touchedFields.city) ? errors.city?.message : ""}
-      />
+        <CustomInput
+          label="Ville"
+          name="city"
+          type="text"
+          {...register("city")}
+          error={(hasSubmitted && touchedFields.city) ? errors.city?.message : ""}
+        />
 
-      <CustomInput
-        label="Code postal"
-        name="postalCode"
-        type="text"
-        {...register("postalCode")}
-        error={(hasSubmitted && touchedFields.postalCode) ? errors.postalCode?.message : ""}
-      />
+        <CustomInput
+          label="Code postal"
+          name="postalCode"
+          type="text"
+          {...register("postalCode")}
+          error={(hasSubmitted && touchedFields.postalCode) ? errors.postalCode?.message : ""}
+        />
 
-      <button type="submit" disabled={!allFieldsFilled}>
-        Sauvegarder
-      </button>
+        <button type="submit" disabled={!allFieldsFilled}>
+          Sauvegarder
+        </button>
+      </div>
     </form>
   );
 }
