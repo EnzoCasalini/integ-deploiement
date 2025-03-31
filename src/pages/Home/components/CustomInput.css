@@ -1,0 +1,76 @@
+.custom-input {
+    font-family: "Police MS Mincho", serif;
+}
+
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.form__field {
+    font-family: "Arial", serif;
+    font-weight: normal;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #efefef;
+    outline: 0;
+    font-size: 0.9rem;
+    color: #efefef;
+    padding: 10px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+        color: transparent;
+    }
+
+    &:placeholder-shown ~ .form__label {
+        font-size: 0.9rem;
+        cursor: text;
+        top: 20px;
+    }
+}
+
+.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 0.9rem;
+    color: #8f8f8f;
+}
+
+.form__field:focus {
+    ~ .form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #c7c7c7;
+        font-weight:700;
+    }
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+}
+
+/* reset input */
+.form__field{
+    &:required,&:invalid { box-shadow:none; }
+}
+
+input[aria-invalid="true"] {
+    ~ .form__label {
+        color: #C42037;
+    }
+    border-color: #C42037;
+}
+
+.error-message {
+    color: #C42037;
+    font-family: "Arial", serif;
+    font-size: 0.7rem;
+}

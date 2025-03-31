@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Police MS Mincho";
+  src: url("../src/assets/fonts/Police_MS_Mincho.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

@@ -56,7 +56,43 @@ form::before {
 }
 
 h1 {
-    font-size: 2.5em !important;
+    font-size: 2rem !important;
     max-width: 350px;
     font-family: "Arial Black", serif;
+}
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.submit-button {
+    float: right;
+    padding: 10px 70px;
+    border-radius: 15px;
+    background-color: #efefef;
+    color: black;
+    font-size: 0.9rem;
+    font-family: "Arial Black", serif;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+.submit-button:disabled {
+    pointer-events: none;
+    background-color: #8f8f8f;
+}
+
+.submit-button:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.submit-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
