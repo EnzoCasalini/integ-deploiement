@@ -1,12 +1,115 @@
-# React + Vite
+# 📝 Formulaire React – TP d’Intégration & Déploiement
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projet réalisé dans le cadre du TP “Intégration & Déploiement”.  
+Objectif : construire un formulaire d’inscription React complet avec validation, tests, documentation, couverture, déploiement GitHub Pages et publication NPM.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Fonctionnalités
 
-## Expanding the ESLint configuration
+- Formulaire avec champs : **Nom**, **Prénom**, **Email**, **Date de naissance**, **Ville**, **Code postal**
+- ✅ Validation des champs avec Zod
+- ✅ Blocage des -18 ans
+- ✅ Format email, nom/prénom, code postal
+- ✅ Bouton "Sauvegarder" désactivé tant que tous les champs ne sont pas remplis
+- ✅ Affichage des erreurs sous les champs
+- ✅ Sauvegarde dans le `localStorage`
+- ✅ Toasts de succès ou d’erreur avec `react-toastify`
+- ✅ Réinitialisation du formulaire après enregistrement
+- ✅ Couverture de tests **100%**
+- ✅ Documentation technique générée avec `jsdoc`
+- ✅ Déploiement automatique via GitHub Actions
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Stack technique
+
+| Outil                         | Usage                                |
+|------------------------------|--------------------------------------|
+| **React 18.2.0**             | Framework front                      |
+| **Vite**                     | Bundler / Dev Server                 |
+| **react-hook-form**          | Gestion du formulaire                |
+| **Zod**                      | Validation des données               |
+| **react-toastify**           | Toasts (succès/erreur)               |
+| **Vitest**                   | Tests unitaires et d’intégration    |
+| **Testing Library**          | Tests orientés utilisateur           |
+| **jsdoc**                    | Génération de documentation          |
+| **GitHub Actions**           | CI (tests + déploiement)             |
+| **GitHub Pages**             | Hébergement de l’application         |
+| **Codecov**                  | Visualisation de la couverture       |
+
+---
+
+## 📦 Installation
+
+```bash
+npm install
+```
+
+---
+
+## 🧪 Lancer les tests
+
+```bash
+npm run test
+```
+
+## 📈 Rapport de couverture
+
+```bash
+npm run coverage
+```
+
+Le rapport est généré dans `coverage/index.html`.  
+📡 Couverture visible sur Codecov :  
+👉 [Voir la couverture sur Codecov](https://app.codecov.io/gh/EnzoCasalini/integ-deploiement)
+
+---
+
+## 🌍 Déploiement
+
+L'application est automatiquement déployée après tests réussis.  
+👉 [Voir le site en ligne](https://enzocasalini.github.io/integ-deploiement/)
+
+---
+
+## 📚 Documentation technique
+
+```bash
+npm run jsdoc
+```
+
+Accessible ensuite ici :  
+📁 `public/docs/index.html`
+
+---
+
+## 📤 Publication NPM
+
+(Si publié)
+
+```bash
+npm install @<ton-profil-npm>/formulaire-react
+```
+
+---
+
+## ✅ Tests couverts
+
+| Test | Status |
+|------|--------|
+| Le calcul de l'âge | ✅ |
+| L'âge > 18 ans | ✅ |
+| Le format du code postal | ✅ |
+| Le format des noms/prénoms (y compris accents/tirets) | ✅ |
+| Le format de l’email | ✅ |
+| Le bouton désactivé si les champs sont vides | ✅ |
+| La sauvegarde dans le localStorage et le toaster de succès | ✅ |
+| Le toaster d’erreur et erreurs sous les champs | ✅ |
+| La disparition des erreurs quand corrigées | ✅ |
+
+---
+
+## ✍️ Auteur
+
+Projet réalisé par **Enzo**

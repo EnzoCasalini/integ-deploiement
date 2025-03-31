@@ -1,6 +1,21 @@
 {
+  "tags": {
+    "allowUnknownTags": true
+  },
   "source": {
-    "include": [ "." ],
-    "exclude": [ "node_modules/" ]
+    "include": ["src"],
+    "includePattern": ".+\\.jsx?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": [],
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": false
+  },
+  "opts": {
+    "destination": "./public/docs",
+    "recurse": true,
+    "readme": "./README.md",
+    "encoding": "utf8"
   }
 }

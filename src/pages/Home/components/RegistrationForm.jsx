@@ -6,6 +6,16 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 import {useState} from "react";
 
+/**
+ *
+ * Formulaire d'inscription avec validation (React Hook Form + Zod),
+ * affichage d'erreurs, gestion du localStorage, et toasts de succès/erreur.
+ *
+ * @component
+ * @name RegistrationForm
+ * @returns {JSX.Element} Le formulaire d'inscription complet
+ */
+
 const RegistrationForm = () => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -31,6 +41,12 @@ const RegistrationForm = () => {
     formData.city?.trim() &&
     formData.postalCode?.trim();
 
+  /**
+   * Callback appelé lors de la soumission du formulaire si les données sont valides.
+   * @function onSubmit
+   * @name onSubmit
+   * @param {Object} data - Les données saisies par l'utilisateur.
+   */
   const onSubmit = (data) => {
     setHasSubmitted(true);
 
@@ -42,6 +58,11 @@ const RegistrationForm = () => {
     setHasSubmitted(false);
   };
 
+  /**
+   * Callback appelé si des erreurs de validation sont détectées à la soumission.
+   * @function onError
+   * @name onError
+   */
   const onError = () => {
     setHasSubmitted(true);
     toast.error("Veuillez corriger les erreurs.");
