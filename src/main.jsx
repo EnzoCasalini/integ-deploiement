@@ -12,3 +12,5 @@ createRoot(document.getElementById('root')).render(
     <ToastContainer position="top-right" autoClose={3000} />
   </StrictMode>,
 )
+
+export default App;
