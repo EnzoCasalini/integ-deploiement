@@ -65,6 +65,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+          always-auth: true
+
       - name: Install Babel dependencies
         run: npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-react
       - name: Build package for npm
