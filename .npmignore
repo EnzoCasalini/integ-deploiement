@@ -1,0 +1,13 @@
+node_modules
+/src
+/coverage
+/public
+.vitest
+.vscode
+*.test.js
+*.test.jsx
+setupTests.js
+.github
+dist/**/*.map
+*.log
+.DS_Store
