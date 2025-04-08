@@ -27,6 +27,11 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload dist for GitHub Pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages-dist
+          path: dist
 
   deploy_pages:
     needs: build_test
@@ -40,11 +45,15 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
+      - name: Download dist from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages-dist
+          path: dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
-          if-no-files-found: error
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
