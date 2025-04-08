@@ -73,9 +73,16 @@ jobs:
           git config --global user.name "EnzoCasalini"
       - name: Setup npm authentication
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-      - name: Bump version and publish on NPM
+
+      - name: Check if version already published
         run: |
-          npm version patch --no-git-tag-version
-          npm publish
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if npm view "$PKG_NAME@$PKG_VERSION" > /dev/null 2>&1; then
+            echo "Version $PKG_VERSION already exists on NPM. Skipping publish."
+            exit 0
+          fi
+      - name: Publish on NPM
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
