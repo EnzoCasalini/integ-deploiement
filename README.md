@@ -86,10 +86,9 @@ Accessible ensuite ici :
 
 ## 📤 Publication NPM
 
-(Si publié)
 
 ```bash
-npm install @<ton-profil-npm>/formulaire-react
+npm i ci-cd-enzo-casalini
 ```
 
 ---
