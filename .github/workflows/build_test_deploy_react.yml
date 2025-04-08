@@ -17,8 +17,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: 'https://registry.npmjs.org'
-          always-auth: true
       - name: npm ci, jsdoc, build and test
         run: |
           npm ci
@@ -65,14 +63,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 20
-          registry-url: 'https://registry.npmjs.org'
-          always-auth: true
-
       - name: Install Babel dependencies
         run: npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-react
       - name: Build package for npm
@@ -81,6 +71,8 @@ jobs:
         run: |
           git config --global user.email "enzocasa83@gmail.com"
           git config --global user.name "EnzoCasalini"
+      - name: Setup npm authentication
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - name: Bump version and publish on NPM
         run: |
           npm version patch --no-git-tag-version
