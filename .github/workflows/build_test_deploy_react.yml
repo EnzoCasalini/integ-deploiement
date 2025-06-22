@@ -22,6 +22,8 @@ jobs:
 
       - name: Install dependencies and run unit/integration tests
         working-directory: ./
+        env:
+          VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
         run: |
           npm ci
           npm run coverage
