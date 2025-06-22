@@ -24,3 +24,6 @@ public/docs
 *.njsproj
 *.sln
 *.sw?
+
+.env
+.env.*

@@ -15,7 +15,7 @@ const AdminLoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const API_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
+  const API_URL = import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:8000";
 
   // Vider les champs quand le modal se ferme
   useEffect(() => {

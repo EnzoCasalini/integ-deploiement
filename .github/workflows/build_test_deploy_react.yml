@@ -21,7 +21,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies and run unit/integration tests
-        working-directory: ./my-react-app
+        working-directory: ./
         run: |
           npm ci
           npm run coverage
@@ -32,13 +32,13 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          working-directory: ./my-react-app
+          working-directory: ./
 
       - name: Upload dist for GitHub Pages
         uses: actions/upload-artifact@v4
         with:
           name: github-pages-dist
-          path: my-react-app/dist
+          path: dist
 
   docker:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
 
       - name: Start Docker environment
         run: docker-compose up -d --build
-        working-directory: ./my-react-app
+        working-directory: ./
 
       - name: Wait for services to be healthy
         run: sleep 10
@@ -68,11 +68,11 @@ jobs:
           node-version: 20
 
       - name: Install front dependencies
-        working-directory: ./my-react-app
+        working-directory: ./
         run: npm ci
 
       - name: Run Cypress tests
-        working-directory: ./my-react-app
+        working-directory: ./
         run: |
           npx cypress install
           npx cypress run
@@ -114,7 +114,7 @@ jobs:
 
       - name: Build npm package
         run: npm run build-npm-ci
-        working-directory: ./my-react-app
+        working-directory: ./
 
       - name: Configure Git
         run: |
@@ -126,8 +126,8 @@ jobs:
 
       - name: Check if version is already published
         run: |
-          PKG_NAME=$(node -p "require('./my-react-app/package.json').name")
-          PKG_VERSION=$(node -p "require('./my-react-app/package.json').version")
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
           if npm view "$PKG_NAME@$PKG_VERSION" > /dev/null 2>&1; then
             echo "Version $PKG_VERSION already exists on NPM. Skipping publish."
             exit 1
@@ -135,7 +135,7 @@ jobs:
 
       - name: Publish to NPM
         run: npm publish
-        working-directory: ./my-react-app
+        working-directory: ./
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -147,4 +147,4 @@ jobs:
 
       - name: Deploy FastAPI to Vercel
         run: npx vercel deploy --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
-        working-directory: ./my-react-app/server
+        working-directory: ./server

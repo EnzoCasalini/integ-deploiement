@@ -20,7 +20,7 @@ const UsersList = ({ users, onUsersUpdate, onAdminStateChange, isAdmin: parentIs
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [toast, setToast] = useState({ message: '', type: 'info', isVisible: false });
-  const API_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
+  const API_URL = import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:8000";
 
   // Synchroniser l'état admin avec le parent
   useEffect(() => {

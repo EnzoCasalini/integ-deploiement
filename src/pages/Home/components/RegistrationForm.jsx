@@ -23,7 +23,7 @@ import {useState} from "react";
 const RegistrationForm = ({ onUserRegistered }) => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const API_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
+  const API_URL = import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:8000";
 
   const {
     register,
