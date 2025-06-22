@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './AdminLoginModal.css';
 
 /**
@@ -16,6 +16,15 @@ const AdminLoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const API_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
+
+  // Vider les champs quand le modal se ferme
+  useEffect(() => {
+    if (!isOpen) {
+      setCredentials({ email: '', password: '' });
+      setError('');
+      setLoading(false);
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,14 +67,22 @@ const AdminLoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
     });
   };
 
+  const handleClose = () => {
+    // Vider les champs avant de fermer
+    setCredentials({ email: '', password: '' });
+    setError('');
+    setLoading(false);
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={handleClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h3>Connexion Administrateur</h3>
-          <button className="modal-close" onClick={onClose}>×</button>
+          <button className="modal-close" onClick={handleClose}>×</button>
         </div>
         
         <form onSubmit={handleSubmit} className="login-form">
