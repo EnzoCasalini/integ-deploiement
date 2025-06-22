@@ -1,12 +1,12 @@
 {
   "name": "ci-cd-enzo-casalini",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "test": "vitest",
     "build": "vite build",
-    "postbuild": "cp 404.html dist/404.html",
+    "postbuild": "cp dist/index.html dist/404.html",
     "build-npm-ci": "NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files",
     "coverage": "vitest run --coverage",
     "jsdoc": "jsdoc -R ./README.md -c ./jsdoc.config.json -r -d ./public/docs",
