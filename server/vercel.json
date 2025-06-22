@@ -1,0 +1,8 @@
+{
+    "builds": [
+      { "src": "my-react-app/server/vercel.py", "use": "@vercel/python" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "my-react-app/server/vercel.py" }
+    ]
+}
