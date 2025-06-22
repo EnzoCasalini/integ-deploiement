@@ -10,9 +10,15 @@ from database import get_connection, create_admin_user
 app = FastAPI(title="User Management API", version="1.0.0")
 
 # CORS middleware
+origins = [
+    "http://localhost:3000",
+    "http://localhost:5173",       
+    "https://enzocasalini.github.io/integ-deploiement",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # React app URL
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

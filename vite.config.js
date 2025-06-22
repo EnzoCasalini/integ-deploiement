@@ -10,7 +10,7 @@ export default defineConfig({
     environment: "jsdom",
     coverage: {
       provider: 'istanbul',
-      exclude: ["src/main.jsx", "src/App.jsx", "src/pages/Home/Home.jsx"],
+      exclude: ["src/main.jsx", "src/App.jsx", "src/pages/Home/Home.jsx", "cypress", "cypress.config.js"],
     },
   },
 });
