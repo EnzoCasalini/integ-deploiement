@@ -14,6 +14,7 @@ origins = [
     "http://localhost:3000",
     "http://localhost:5173",       
     "https://enzocasalini.github.io/integ-deploiement",
+    "https://enzocasalini.github.io/integ-deploiement/",
 ]
 
 app.add_middleware(
