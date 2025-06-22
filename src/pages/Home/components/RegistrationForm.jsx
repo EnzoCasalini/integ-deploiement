@@ -12,15 +12,18 @@ import {useState} from "react";
 /**
  *
  * Formulaire d'inscription avec validation (React Hook Form + Zod),
- * affichage d'erreurs, gestion du localStorage, et toasts de succès/erreur.
+ * envoi vers l'API FastAPI, et toasts de succès/erreur.
  *
  * @component
  * @name RegistrationForm
+ * @param {Function} onUserRegistered - Callback appelé quand un utilisateur s'inscrit avec succès
  * @returns {JSX.Element} Le formulaire d'inscription complet
  */
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ onUserRegistered }) => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const API_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:8000";
 
   const {
     register,
@@ -46,19 +49,63 @@ const RegistrationForm = () => {
 
   /**
    * Callback appelé lors de la soumission du formulaire si les données sont valides.
+   * Envoie les données à l'API FastAPI.
    * @function onSubmit
    * @name onSubmit
    * @param {Object} data - Les données saisies par l'utilisateur.
    */
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setHasSubmitted(true);
+    setIsSubmitting(true);
 
-    localStorage.setItem("userData", JSON.stringify(data));
-    toast.success("Candidature sauvegardée !");
+    try {
+      // Convertir les noms de champs pour correspondre à l'API
+      const apiData = {
+        last_name: data.lastName,
+        first_name: data.firstName,
+        email: data.email,
+        birth_date: data.birthDate,
+        city: data.city,
+        postal_code: data.postalCode
+      };
 
-    reset();
+      const response = await fetch(`${API_URL}/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(apiData),
+      });
 
-    setHasSubmitted(false);
+      if (response.ok) {
+        const result = await response.json();
+        toast.success(result.message || "Inscription réussie !");
+        reset();
+        
+        // Appeler le callback avec les données de l'utilisateur créé
+        if (onUserRegistered) {
+          onUserRegistered({
+            id: result.user_id || Date.now(), // Fallback si l'API ne retourne pas d'ID
+            first_name: data.firstName,
+            last_name: data.lastName,
+            email: data.email,
+            birth_date: data.birthDate,
+            city: data.city,
+            postal_code: data.postalCode,
+            role: 'user' // Rôle par défaut pour les nouveaux utilisateurs
+          });
+        }
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.detail || "Erreur lors de l'inscription");
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi:', error);
+      toast.error("Erreur de connexion au serveur");
+    } finally {
+      setIsSubmitting(false);
+      setHasSubmitted(false);
+    }
   };
 
   /**
@@ -72,7 +119,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <form noValidate onSubmit={handleSubmit(onSubmit, onError)}>
+    <form className="registration-form" noValidate onSubmit={handleSubmit(onSubmit, onError)}>
       <div className="left-side">
         <div className="image-wrapper">
           <img className="logo" src={hxhlogo} alt="The logo of Hunter x Hunter."/>
@@ -131,8 +178,12 @@ const RegistrationForm = () => {
           />
         </div>
 
-        <button type="submit" className="submit-button" disabled={!allFieldsFilled}>
-          JOIN !
+        <button 
+          type="submit" 
+          className="submit-button" 
+          disabled={!allFieldsFilled || isSubmitting}
+        >
+          {isSubmitting ? "ENVOI..." : "JOIN !"}
         </button>
       </div>
     </form>
