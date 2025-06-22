@@ -99,6 +99,9 @@ jobs:
           name: github-pages-dist
           path: dist
 
+      - name: Create .nojekyll
+        run: echo > dist/.nojekyll
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
