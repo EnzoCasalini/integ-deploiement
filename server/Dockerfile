@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy source code
-COPY server.py .
+COPY main.py .
 COPY models.py .
 COPY auth.py .
 COPY database.py .
