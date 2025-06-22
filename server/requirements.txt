@@ -1,0 +1,7 @@
+mysql-connector-python
+fastapi
+uvicorn
+pyjwt
+pydantic
+email-validator
+bcrypt

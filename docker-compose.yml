@@ -1,0 +1,80 @@
+# Common variables
+x-common-variables: &common-variables
+  MYSQL_HOST: ${MYSQL_HOST}
+  MYSQL_DATABASE: ${MYSQL_DATABASE}
+  MYSQL_USER: ${MYSQL_USER}
+  MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+# Specific variables for FastAPI
+x-fastapi-variables: &fastapi-variables
+  <<: *common-variables
+  PORT: ${PORT}
+  ADMIN_EMAIL: ${ADMIN_EMAIL}
+  ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+
+services:
+  # MySQL database
+  mysql-db:
+    image: mysql:8.2
+    restart: always
+    environment:
+      <<: *common-variables
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sqlfiles/:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: mysqladmin ping -h localhost
+    networks:
+      - app-network
+
+  # Adminer for database management
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  # FastAPI server
+  fastapi-server:
+    restart: on-failure
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    volumes:
+      - ./server:/server
+    container_name: fastapi-server
+    ports:
+      - "8000:8000"
+    environment:
+      <<: *fastapi-variables
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  # Front-end React
+  react-app:
+    platform: linux/amd64
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: DockerfileReact
+    container_name: react-app
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://fastapi-server:8000
+    depends_on:
+      - fastapi-server
+    networks:
+      - app-network
+
+# Network for services
+networks:
+  app-network:
+    driver: bridge
