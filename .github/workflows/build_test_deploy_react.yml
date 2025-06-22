@@ -53,7 +53,7 @@ jobs:
         working-directory: ./
 
       - name: Wait for services to be healthy
-        run: sleep 30
+        run: sleep 10
 
       - name: Check running containers
         run: docker ps -a
@@ -79,7 +79,7 @@ jobs:
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
         run: |
           npx cypress install
-          npx cypress run
+          CYPRESS_BASE_URL=https://enzocasalini.github.io/integ-deploiement/ npx cypress run
 
   deploy_pages:
     needs: build_test

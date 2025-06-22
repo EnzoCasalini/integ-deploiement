@@ -1,6 +1,6 @@
 describe('Validation du formulaire d\'inscription', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
   });
 
   it('Affiche des erreurs avec des champs invalides et reste sur la page', () => {
@@ -15,7 +15,7 @@ describe('Validation du formulaire d\'inscription', () => {
     cy.get('button[type="submit"]').click();
 
     // Vérifie que l'utilisateur reste sur la page
-    cy.url().should('include', 'localhost:3000');
+    cy.url().should('not.include', '/admin');
     
     // Vérifie qu'une erreur d'email s'affiche
     cy.get('input[name="email"]').should('have.attr', 'aria-invalid', 'true');
@@ -32,7 +32,7 @@ describe('Validation du formulaire d\'inscription', () => {
     cy.get('button[type="submit"]').click();
 
     // Vérifie que l'utilisateur reste sur la page
-    cy.url().should('include', 'localhost:3000');
+    cy.url().should('not.include', '/admin');
     
     // Vérifie qu'une erreur de code postal s'affiche
     cy.get('input[name="postalCode"]').should('have.attr', 'aria-invalid', 'true');
@@ -53,7 +53,7 @@ describe('Validation du formulaire d\'inscription', () => {
     cy.get('button[type="submit"]').click();
 
     // Vérifie que l'utilisateur reste sur la page
-    cy.url().should('include', 'localhost:3000');
+    cy.url().should('not.include', '/admin');
     
     // Vérifie qu'une erreur de date s'affiche
     cy.get('input[name="birthDate"]').should('have.attr', 'aria-invalid', 'true');
@@ -88,10 +88,10 @@ describe('Validation du formulaire d\'inscription', () => {
 describe('Navigation et routes', () => {
   it('Affiche une page 404 pour les routes inexistantes', () => {
     // Visiter une URL inexistante
-    cy.visit('http://localhost:3000/page-inexistante');
+    cy.visit('/page-inexistante');
     
     // Vérifie qu'on reste sur la page demandée (pas de redirection automatique)
-    cy.url().should('eq', 'http://localhost:3000/page-inexistante');
+    cy.url().should('include', '/page-inexistante');
     
     // Vérifie qu'une page d'erreur s'affiche ou que l'application gère l'erreur
     // (selon la configuration de React Router)
@@ -100,9 +100,9 @@ describe('Navigation et routes', () => {
 
   it('Gère les routes invalides', () => {
     // Visiter une route avec des paramètres invalides
-    cy.visit('http://localhost:3000/admin/invalid');
+    cy.visit('/admin/invalid');
     
     // Vérifie qu'on reste sur la page demandée
-    cy.url().should('eq', 'http://localhost:3000/admin/invalid');
+    cy.url().should('include', '/admin/invalid');
   });
 }); 

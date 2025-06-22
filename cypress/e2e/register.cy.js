@@ -9,7 +9,7 @@ describe('Formulaire d\'inscription', () => {
     };
   
     it('Remplit le formulaire et voit l\'utilisateur apparaître dans la liste', () => {
-      cy.visit('http://localhost:3000'); // Ou URL de ton front déployé
+      cy.visit('/'); // Ou URL de ton front déployé
   
       // Remplir le formulaire
       cy.get('input[name="lastName"]').type(user.lastName);

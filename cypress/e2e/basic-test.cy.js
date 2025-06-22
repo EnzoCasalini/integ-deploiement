@@ -1,6 +1,6 @@
 describe('Test de base de l\'application', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
   });
 
   it('Charge la page d\'accueil sans erreurs', () => {

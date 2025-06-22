@@ -1,6 +1,6 @@
 describe('Tests simplifiés avec commandes personnalisées', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
     // Ignorer les erreurs React non critiques
     cy.on('uncaught:exception', (err) => {
       if (err.message.includes('Minified React error #31')) {

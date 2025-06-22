@@ -1,6 +1,6 @@
 describe('Flux d\'intégration complet', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
     // Ignorer les erreurs React non critiques
     cy.on('uncaught:exception', (err) => {
       if (err.message.includes('Minified React error #31')) {
@@ -93,10 +93,10 @@ describe('Flux d\'intégration complet', () => {
 
   it('Test de navigation : redirection vers la page d\'accueil', () => {
     // Aller sur une URL invalide
-    cy.visit('http://localhost:3000/invalid-page');
+    cy.visit('/invalid-page');
     
     // Vérifier qu'on est redirigé vers la page d'accueil
-    cy.url().should('eq', 'http://localhost:3000/');
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
     // Vérifier que la page d'accueil s'affiche correctement
     cy.contains('Liste des Hunters').should('be.visible');
   });

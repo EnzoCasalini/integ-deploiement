@@ -1,6 +1,6 @@
 describe('Authentification administrateur', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
   });
 
   it('Se connecte en tant qu\'administrateur avec des identifiants valides', () => {
