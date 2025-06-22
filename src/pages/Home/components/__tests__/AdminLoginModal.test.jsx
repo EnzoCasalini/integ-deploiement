@@ -3,6 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AdminLoginModal from '../AdminLoginModal';
 
+// Constante pour l'URL de l'API (dynamique)
+const API_URL = import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:8000";
+
 // Mock de fetch global
 global.fetch = vi.fn();
 
@@ -77,7 +80,7 @@ describe('AdminLoginModal', () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(fetch).toHaveBeenCalledWith('http://localhost:8000/login', {
+      expect(fetch).toHaveBeenCalledWith(`${API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

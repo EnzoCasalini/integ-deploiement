@@ -4,6 +4,9 @@ import userEvent from "@testing-library/user-event";
 import RegistrationForm from "../RegistrationForm";
 import { toast } from "react-toastify";
 
+// Constante pour l'URL de l'API (dynamique)
+const API_URL = import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:8000";
+
 // Mock de react-toastify
 vi.mock("react-toastify", () => ({
   toast: {
@@ -73,7 +76,7 @@ describe("RegistrationForm – Tests d'intégration", () => {
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        "http://localhost:8000/register",
+        `${API_URL}/register`,
         {
           method: "POST",
           headers: {

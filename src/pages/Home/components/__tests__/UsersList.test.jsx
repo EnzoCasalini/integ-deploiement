@@ -3,6 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import UsersList from '../UsersList';
 
+// Constante pour l'URL de l'API (dynamique)
+const API_URL = import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:8000";
+
 // Mocks globaux
 global.fetch = vi.fn();
 const localStorageMock = {
