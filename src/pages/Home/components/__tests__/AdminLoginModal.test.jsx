@@ -85,7 +85,6 @@ describe('AdminLoginModal', () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: "include",
         body: JSON.stringify({
           email: 'admin@example.com',
           password: 'password123',
