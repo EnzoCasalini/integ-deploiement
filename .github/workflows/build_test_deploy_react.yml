@@ -112,6 +112,7 @@ jobs:
         run: npm run build
         env:
           VITE_BASE_PATH: /integ-deploiement/
+          VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
 
       - name: Create .nojekyll
         run: echo > dist/.nojekyll
