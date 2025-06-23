@@ -54,8 +54,8 @@ jobs:
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
 
-      - name: Start Docker environment (no cache)
-        run: docker compose up -d --build --no-cache
+      - name: Start Docker environment
+        run: docker compose up -d --build
         working-directory: ./
 
       - name: Wait for services to be ready
