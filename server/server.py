@@ -13,7 +13,7 @@ app = FastAPI(title="User Management API", version="1.0.0")
 origins = [
     "http://localhost:3000",
     "http://localhost:5173",       
-    "https://enzocasalini.github.io",
+    "https://enzocasalini.github.io/integ-deploiement/",
 ]
 
 app.add_middleware(
