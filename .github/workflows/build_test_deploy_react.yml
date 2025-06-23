@@ -105,6 +105,9 @@ jobs:
           name: github-pages-dist
           path: dist
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Build for GitHub Pages
         run: npm run build
         env:
