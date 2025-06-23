@@ -54,8 +54,8 @@ jobs:
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
 
-      - name: Start Docker environment
-        run: docker compose up -d --build
+      - name: Start Docker environment (no cache)
+        run: docker compose up -d --build --no-cache
         working-directory: ./
 
       - name: Wait for services to be ready
@@ -64,6 +64,12 @@ jobs:
           timeout 90 bash -c 'until curl -f http://localhost:8000 > /dev/null 2>&1; do sleep 2; done'
           echo "Waiting for frontend (http://localhost:3000) to be ready..."
           timeout 90 bash -c 'until curl -f http://localhost:3000 > /dev/null 2>&1; do sleep 2; done'
+
+      - name: Afficher les logs du front
+        run: docker logs react-app
+
+      - name: Vérifier le contenu du build React
+        run: docker exec react-app ls -l /app/dist
 
       - name: Install Node.js
         uses: actions/setup-node@v2

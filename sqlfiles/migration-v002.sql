@@ -12,16 +12,3 @@ CREATE TABLE IF NOT EXISTS users (
     postal_code VARCHAR(10) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
-
-INSERT INTO users (last_name, first_name, email, password, role, birth_date, city, postal_code)
-VALUES (
-    'Goat',
-    'Loïse',
-    'loise.fenoll@ynov.com',
-    '$2b$12$wmBVeszGkMevUJJUmr/h7uyJTWhUZ4iLu6/iTyZtJgecBzhqsEzBW',
-    'admin',
-    '1990-01-01',
-    'Valbonne',
-    '06560'
-)
-ON DUPLICATE KEY UPDATE email=email;
