@@ -73,13 +73,21 @@ jobs:
         working-directory: ./
         run: npm ci
 
-      - name: Run Cypress tests
+      - name: Wait for services to be ready
+        run: |
+          echo "Waiting for services to be ready..."
+          sleep 15
+          docker ps -a
+          # Wait for React app to be accessible
+          timeout 60 bash -c 'until curl -f http://localhost:3000 > /dev/null 2>&1; do sleep 2; done'
+
+      - name: Run Cypress tests against Docker environment
         working-directory: ./
         env:
-          VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
+          VITE_REACT_APP_API_URL: http://localhost:8000
         run: |
           npx cypress install
-          CYPRESS_BASE_URL=https://enzocasalini.github.io/integ-deploiement/ npx cypress run
+          CYPRESS_BASE_URL=http://localhost:3000 npx cypress run
 
   deploy_pages:
     needs: build_test
