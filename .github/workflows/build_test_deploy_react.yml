@@ -42,7 +42,7 @@ jobs:
           name: github-pages-dist
           path: dist
 
-  docker:
+  docker_and_e2e:
     runs-on: ubuntu-latest
     needs: build_test
     steps:
@@ -52,42 +52,28 @@ jobs:
         run: docker compose up -d --build
         working-directory: ./
 
-      - name: Wait for services to be healthy
-        run: sleep 10
+      - name: Wait for containers to be ready
+        run: |
+          echo "Waiting for backend to be ready..."
+          timeout 60 bash -c 'until curl -f http://localhost:8000 > /dev/null 2>&1; do sleep 2; done'
+          echo "Waiting for frontend to be ready..."
+          timeout 60 bash -c 'until curl -f http://localhost:3000 > /dev/null 2>&1; do sleep 2; done'
 
-      - name: Check running containers
-        run: docker ps -a
-
-  e2e:
-    runs-on: ubuntu-latest
-    needs: [build_test, docker]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Use Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 20
 
       - name: Install front dependencies
-        working-directory: ./
         run: npm ci
 
-      - name: Wait for services to be ready
-        run: |
-          echo "Waiting for services to be ready..."
-          sleep 15
-          docker ps -a
-          # Wait for React app to be accessible
-          timeout 60 bash -c 'until curl -f http://localhost:3000 > /dev/null 2>&1; do sleep 2; done'
-
       - name: Run Cypress tests against Docker environment
-        working-directory: ./
         env:
           VITE_REACT_APP_API_URL: http://localhost:8000
+          CYPRESS_BASE_URL: http://localhost:3000
         run: |
           npx cypress install
-          CYPRESS_BASE_URL=http://localhost:3000 npx cypress run
+          npx cypress run
 
   deploy_pages:
     needs: build_test
