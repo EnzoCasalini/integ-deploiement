@@ -1,6 +1,6 @@
 {
   "name": "ci-cd-enzo-casalini",
-  "version": "0.1.9",
+  "version": "0.1.14",
   "type": "module",
   "scripts": {
     "dev": "vite",
