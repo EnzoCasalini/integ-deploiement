@@ -105,6 +105,11 @@ jobs:
           name: github-pages-dist
           path: dist
 
+      - name: Build for GitHub Pages
+        run: npm run build
+        env:
+          VITE_BASE_PATH: /integ-deploiement/
+
       - name: Create .nojekyll
         run: echo > dist/.nojekyll
       
