@@ -1,114 +1,174 @@
-# 📝 Formulaire React – TP d’Intégration & Déploiement
+# 📝 Formulaire d'Inscription Avancé – CI/CD & Déploiement
 
-Projet réalisé dans le cadre du TP “Intégration & Déploiement”.  
-Objectif : construire un formulaire d’inscription React complet avec validation, tests, documentation, couverture, déploiement GitHub Pages et publication NPM.
+[![CI/CD – React, FastAPI, Docker, Cypress](https://github.com/EnzoCasalini/integ-deploiement/actions/workflows/build_test_deploy_react.yml/badge.svg)](https://github.com/EnzoCasalini/integ-deploiement/actions/workflows/build_test_deploy_react.yml)
+[![codecov](https://codecov.io/gh/EnzoCasalini/integ-deploiement/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EnzoCasalini/integ-deploiement)
+[![npm version](https://badge.fury.io/js/ci-cd-enzo-casalini.svg)](https://badge.fury.io/js/ci-cd-enzo-casalini)
+[![GitHub Pages](https://img.shields.io/github/deployments/EnzoCasalini/integ-deploiement/github-pages?label=GitHub%20Pages)](https://enzocasalini.github.io/integ-deploiement/)
 
----
-
-## 🚀 Fonctionnalités
-
-- Formulaire avec champs : **Nom**, **Prénom**, **Email**, **Date de naissance**, **Ville**, **Code postal**
-- ✅ Validation des champs avec Zod
-- ✅ Blocage des -18 ans
-- ✅ Format email, nom/prénom, code postal
-- ✅ Bouton "Sauvegarder" désactivé tant que tous les champs ne sont pas remplis
-- ✅ Affichage des erreurs sous les champs
-- ✅ Sauvegarde dans le `localStorage`
-- ✅ Toasts de succès ou d’erreur avec `react-toastify`
-- ✅ Réinitialisation du formulaire après enregistrement
-- ✅ Couverture de tests **100%**
-- ✅ Documentation technique générée avec `jsdoc`
-- ✅ Déploiement automatique via GitHub Actions
+Ce projet est une démonstration complète d'une application web moderne, intégrant un frontend **React**, un backend **FastAPI**, des tests end-to-end avec **Cypress**, et une pipeline **CI/CD** complète avec GitHub Actions pour le déploiement et la publication.
 
 ---
 
-## 🛠️ Stack technique
+###  डेमो en Ligne
 
-| Outil                         | Usage                                |
-|------------------------------|--------------------------------------|
-| **React 18.2.0**             | Framework front                      |
-| **Vite**                     | Bundler / Dev Server                 |
-| **react-hook-form**          | Gestion du formulaire                |
-| **Zod**                      | Validation des données               |
-| **react-toastify**           | Toasts (succès/erreur)               |
-| **Vitest**                   | Tests unitaires et d’intégration    |
-| **Testing Library**          | Tests orientés utilisateur           |
-| **jsdoc**                    | Génération de documentation          |
-| **GitHub Actions**           | CI (tests + déploiement)             |
-| **GitHub Pages**             | Hébergement de l’application         |
-| **Codecov**                  | Visualisation de la couverture       |
+🚀 **Accédez à l'application déployée ici :** [**https://enzocasalini.github.io/integ-deploiement/**](https://enzocasalini.github.io/integ-deploiement/)
+
+*(L'API backend est hébergée sur Vercel et la base de données sur AlwaysData.)*
 
 ---
 
-## 📦 Installation
+## 🌟 Fonctionnalités Clés
+
+-   **Formulaire d'inscription complet** avec validation en temps réel.
+-   **Backend RESTful** pour la gestion des utilisateurs (création, lecture, suppression).
+-   **Authentification administrateur** sécurisée avec JWT.
+-   **Base de données MySQL** persistante.
+-   **Tests unitaires, d'intégration et E2E** pour garantir la qualité du code.
+-   **Pipeline CI/CD automatisée** pour les tests, le build, et les déploiements.
+-   **Publication automatique** sur NPM.
+-   **Déploiement du frontend** sur GitHub Pages et du **backend** sur Vercel.
+
+## 🛠️ Stack Technique
+
+| Domaine      | Outil                                                                                                   | Rôle                                 |
+| :----------- | :------------------------------------------------------------------------------------------------------ | :----------------------------------- |
+| **Frontend** | [**React**](https://react.dev/) / [**Vite**](https://vitejs.dev/)                                         | Interface utilisateur et build       |
+| **Backend**  | [**FastAPI**](https://fastapi.tiangolo.com/)                                                            | API RESTful en Python                |
+| **Base de Données** | [**MySQL**](https://www.mysql.com/)                                                                     | Stockage des données des utilisateurs |
+| **Tests**    | [**Vitest**](https://vitest.dev/) / [**Cypress**](https://www.cypress.io/)                                | Tests unitaires, intégration et E2E  |
+| **CI/CD**    | [**GitHub Actions**](https://github.com/features/actions) / [**Docker**](https://www.docker.com/)         | Automatisation et conteneurisation   |
+| **Hébergement** | [**GitHub Pages**](https://pages.github.com/) / [**Vercel**](https://vercel.com/) / [**AlwaysData**](https://www.alwaysdata.com/) | Déploiement Front, Back et BDD       |
+| **Qualité**  | [**ESLint**](https://eslint.org/) / [**Codecov**](https://about.codecov.io/)                              | Linter et couverture de tests        |
+| **Paquet**   | [**NPM**](https://www.npmjs.com/)                                                                       | Publication de la librairie          |
+
+## 🚀 Démarrage Rapide
+
+### Prérequis
+
+-   [Node.js](https://nodejs.org/en) (v20.x recommandée)
+-   [Docker](https://www.docker.com/products/docker-desktop/) et Docker Compose
+
+### 1. Installation (sans Docker)
+
+Pour lancer uniquement le frontend en local (connecté à l'API de production).
 
 ```bash
-npm install
+# Cloner le projet
+git clone https://github.com/EnzoCasalini/integ-deploiement.git
+cd integ-deploiement/my-react-app
+
+# Installer les dépendances
+npm ci
+
+# Lancer le serveur de développement
+npm run dev
 ```
 
----
+### 2. Lancer l'environnement complet avec Docker (Recommandé)
 
-## 🧪 Lancer les tests
+Cette méthode lance le frontend, le backend et la base de données dans des conteneurs isolés.
+
+**a. Créez un fichier `.env`** à la racine de `my-react-app` en vous basant sur `env.example` :
+
+```env
+# Base de données MySQL (pour Docker)
+MYSQL_DATABASE=user_registration
+MYSQL_USER=user
+MYSQL_PASSWORD=password
+MYSQL_ROOT_PASSWORD=root
+MYSQL_HOST=mysql-db
+
+# Configuration FastAPI
+PORT=8000
+
+# Compte administrateur injecté dans la BDD de test
+ADMIN_EMAIL=loise.fenoll@ynov.com
+ADMIN_PASSWORD=PvdrTAzTeR247sDnAZBr
+
+# JWT Secret
+JWT_SECRET=un-secret-tres-complique-a-deviner
+```
+
+**b. Lancez les services avec Docker Compose :**
 
 ```bash
-npm run test
+docker compose up --build
 ```
 
-## 📈 Rapport de couverture
+-   Le frontend sera accessible sur `http://localhost:3000`.
+-   Le backend sur `http://localhost:8000`.
+-   La base de données est gérable via Adminer sur `http://localhost:8080`.
 
-```bash
-npm run coverage
+## 🧪 Tests
+
+-   **Lancer les tests unitaires et d'intégration :**
+    ```bash
+    npm run test
+    ```
+-   **Générer le rapport de couverture :**
+    ```bash
+    npm run coverage
+    # Le rapport est visible dans le dossier `coverage/`
+    ```
+-   **Lancer les tests End-to-End (E2E) avec Cypress :**
+    *(Assurez-vous que l'environnement Docker est lancé)*
+    ```bash
+    # Lancer en mode console
+    npm run cypress:run
+
+    # Ouvrir l'interface graphique de Cypress
+    npm run cypress:open
+    ```
+
+## 🔄 Pipeline CI/CD
+
+La pipeline GitHub Actions automatise l'ensemble du cycle de vie de l'application.
+
+```mermaid
+graph TD
+    A[Start: Push/PR sur main] --> B{build_test};
+
+    B --> C{docker_and_e2e};
+    B --> D{deploy_pages};
+    B --> E{deploy_npm};
+    B --> F{deploy_backend_vercel};
+
+    subgraph "Phase 1: Build & Tests Unitaires"
+        B["Job: build_test<br/>(Node.js 20.x)<br/>- npm ci<br/>- vitest coverage<br/>- jsdoc<br/>- vite build"]
+    end
+
+    subgraph "Phase 2: Tests E2E & Déploiements"
+        C["Job: docker_and_e2e<br/>- docker compose up<br/>- cypress run"]
+        D["Job: deploy_pages<br/>Déployer sur GitHub Pages"]
+        E["Job: deploy_npm<br/>Publier sur NPM"]
+        F["Job: deploy_backend_vercel<br/>Déployer sur Vercel"]
+    end
+
+    style B fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#bbf,stroke:#333,stroke-width:2px
+    style D fill:#bbf,stroke:#333,stroke-width:2px
+    style E fill:#bbf,stroke:#333,stroke-width:2px
+    style F fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
-Le rapport est généré dans `coverage/index.html`.  
-📡 Couverture visible sur Codecov :  
-👉 [Voir la couverture sur Codecov](https://app.codecov.io/gh/EnzoCasalini/integ-deploiement)
+## 📚 Documentation
 
----
-
-## 🌍 Déploiement
-
-L'application est automatiquement déployée après tests réussis.  
-👉 [Voir le site en ligne](https://enzocasalini.github.io/integ-deploiement/)
-
----
-
-## 📚 Documentation technique
+La documentation technique des composants React est générée avec JSDoc.
 
 ```bash
 npm run jsdoc
 ```
 
-Accessible ensuite ici :  
-📁 `public/docs/index.html`
+Le résultat est disponible dans le dossier `public/docs`.
 
----
+## 📦 Paquet NPM
 
-## 📤 Publication NPM
-
+Ce projet est également publié en tant que paquet NPM.
 
 ```bash
-npm i ci-cd-enzo-casalini
+npm install ci-cd-enzo-casalini
 ```
-
----
-
-## ✅ Tests couverts
-
-| Test | Status |
-|------|--------|
-| Le calcul de l'âge | ✅ |
-| L'âge > 18 ans | ✅ |
-| Le format du code postal | ✅ |
-| Le format des noms/prénoms (y compris accents/tirets) | ✅ |
-| Le format de l’email | ✅ |
-| Le bouton désactivé si les champs sont vides | ✅ |
-| La sauvegarde dans le localStorage et le toaster de succès | ✅ |
-| Le toaster d’erreur et erreurs sous les champs | ✅ |
-| La disparition des erreurs quand corrigées | ✅ |
-
----
 
 ## ✍️ Auteur
 
-Projet réalisé par **Enzo**
+Projet réalisé par **Enzo Casalini**.
